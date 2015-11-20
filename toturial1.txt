@@ -1,4 +1,8 @@
-# scikit_learn_toturial
+
+# coding: utf-8
+
+# In[1]:
+
 from sklearn import datasets
 #scikit-learn comes with a few standard datasets, 
 #for instance the iris and digits datasets for classification and 
@@ -10,15 +14,122 @@ print(shape(digits.data))
 shape(digits.target)
 
 
+# In[2]:
+
 digits.target
 print(digits.target)
 
 
+# In[3]:
+
 digits.images[0]
 
+
+# In[4]:
 
 from sklearn import svm
 clf=svm.SVC(gamma=0.001, C=100.)
 clf.fit(digits.data[:-1],digits.target[:-1])
 
+
+# In[5]:
+
+
 clf.predict(digits.data[-1:])
+
+
+# In[6]:
+
+from sklearn import svm
+from sklearn import datasets
+clf = svm.SVC()
+iris = datasets.load_iris()
+
+
+# In[7]:
+
+X,y=iris.data, iris.target
+clf.fit(X,y)
+
+
+# In[15]:
+
+import pickle
+s=pickle.dumps(clf)
+clf2=pickle.loads(s)
+print(clf2.predict(X[0:1]))
+y[0]
+
+
+# In[16]:
+
+iris.target
+print(shape(iris.data))
+shape(iris.target)
+
+
+# In[17]:
+
+from sklearn.externals import joblib
+joblib.dump(clf, 'filename.pkl') 
+clf = joblib.load('filename.pkl') 
+
+
+# In[18]:
+
+import numpy as np
+from sklearn import random_projection
+rng=np.random.RandomState(0)
+X = rng.rand(10, 2000)
+X = np.array(X, dtype='float32')
+X.dtype
+
+
+# In[19]:
+
+transformer = random_projection.GaussianRandomProjection()
+X_new = transformer.fit_transform(X)
+X_new.dtype
+
+
+# In[21]:
+
+from sklearn import datasets
+from sklearn.svm import SVC
+iris = datasets.load_iris()
+clf = SVC()
+clf.fit(iris.data, iris.target)  
+print(list(clf.predict(iris.data[:3])))
+clf.fit(iris.data, iris.target_names[iris.target])  
+list(clf.predict(iris.data[:3]))  
+
+
+# In[22]:
+
+import numpy as np
+from sklearn.svm import SVC
+
+rng = np.random.RandomState(0)
+X = rng.rand(100, 10)
+y = rng.binomial(1, 0.5, 100)
+X_test = rng.rand(5, 10)
+
+clf = SVC()
+clf.set_params(kernel='linear').fit(X, y)  
+
+
+# In[23]:
+
+clf.predict(X_test)
+
+
+# In[24]:
+
+clf.set_params(kernel='rbf').fit(X, y)
+clf.predict(X_test)
+
+
+# In[ ]:
+
+
+
